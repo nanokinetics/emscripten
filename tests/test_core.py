@@ -5707,7 +5707,6 @@ return malloc(size);
 
   @no_windows('./configure scripts dont to run on windows.')
   def test_freetype(self):
-    if self.is_windows(): self.skipTest('test_freetype uses a ./configure script to build and therefore currently only runs on Linux and macOS.')
     assert 'asm2g' in test_modes
     if self.run_name == 'asm2g':
       # flip for some more coverage here
