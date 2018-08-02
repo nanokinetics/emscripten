@@ -2588,7 +2588,8 @@ class Building(object):
     # look for ar signature
     elif Building.is_ar(filename):
       return True
-    # on macOS, there is a 20-byte prefix which starts with 0x0B17C0DE
+    # on macOS, there is a 20-byte prefix which starts with little endian
+    # encoding of 0x0B17C0DE
     elif b == b'\xDE\xC0\x17\x0B':
       b = bytearray(open(filename, 'rb').read(22))
       return b[20:] == b'BC'
