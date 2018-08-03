@@ -1,7 +1,6 @@
 from __future__ import print_function
 import json
 import logging
-import multiprocessing
 import os
 import re
 import shutil
@@ -790,8 +789,12 @@ class Ports(object):
       logging.info('building port: ' + name + '...')
       port_build_dir = Ports.get_build_dir()
       shared.safe_ensure_dirs(port_build_dir)
-      libs = shared.Building.build_library(name, port_build_dir, None, generated_libs, source_dir=os.path.join(Ports.get_dir(), name, subdir), copy_project=True,
-                                           configure=configure, make=['make', '-j' + str(CORES)])
+      libs = shared.Building.build_library(name, port_build_dir, None,
+                                           generated_libs,
+                                           source_dir=os.path.join(Ports.get_dir(), name, subdir),
+                                           copy_project=True,
+                                           configure=configure,
+                                           make=['make', '-j' + str(shared.Building.get_num_cores())])
       assert len(libs) == 1
       if post_create:
         post_create()
